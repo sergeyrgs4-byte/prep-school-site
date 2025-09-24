@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Экспресс-диагностика — Подготовка к школе</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin:0; background:#fafafa; color:#222; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 16px; }
+    .card { background:#fff; border:1px solid #eee; border-radius:16px; padding:16px; }
+    .progress { height:10px; background:#eee; border-radius:6px; overflow:hidden; margin:12px 0 20px; }
+    .bar { height:100%; width:0%; background:#222; transition:width .25s ease; }
+    .q-title { font-size:18px; margin:0 0 12px; }
+    .answers { display:grid; gap:10px; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); }
+    .btn { padding:12px 14px; border-radius:12px; border:1px solid #222; background:#fff; cursor:pointer; }
+    .btn.sel { background:#222; color:#fff; }
+    .nav { margin-top:14px; display:flex; gap:10px; }
+    .muted { color:#666; font-size:14px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Экспресс-диагностика</h1>
+    <div class="muted">5 коротких заданий · 3–5 минут</div>
+
+    <div class="progress"><div id="bar" class="bar"></div></div>
+
+    <section class="card">
+      <h2 id="qTitle" class="q-title"></h2>
+      <div id="answers" class="answers"></div>
+      <div class="nav">
+        <button id="nextBtn" class="btn">Дальше</button>
+      </div>
+    </section>
+
+    <section id="result" class="card" style="display:none; margin-top:12px;">
+      <h2>Готово!</h2>
+      <p id="summary"></p>
+      <a class="btn" href="index.html">На главную</a>
+    </section>
+  </main>
+
+  <script>
+    function speak(text){
+      if (!('speechSynthesis' in window)) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'ru-RU';
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }
+  </script>
+  <script src="assets/js/diag.js"></script>
+</body>
+</html>
