@@ -3,136 +3,158 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>АзбуКид — подготовка к школе онлайн за 10 минут в день</title>
-  <meta name="description" content="Экспресс-диагностика 5–7 минут → карта навыков и персональный план на неделю. Ежедневные мини-курсы по 10 минут и бесплатные печатные листы для детей 3–7 лет." />
+  <title>АзбуКид — подготовка к школе онлайн</title>
+  <meta name="description" content="Экспресс-диагностика за 5 минут, карта навыков и персональный план занятий на неделю. Мини-курсы и печатные листы для детей 3–7 лет." />
   <link rel="canonical" href="https://azbukid.ru/" />
   <meta property="og:title" content="АзбуКид — подготовка к школе онлайн" />
-  <meta property="og:description" content="Диагностика + мини-план на 7 дней. Печатные листы бесплатно." />
+  <meta property="og:description" content="Диагностика, сильные стороны и план на 7 дней. 10 минут в день." />
   <meta property="og:url" content="https://azbukid.ru/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://azbukid.ru/og-cover.jpg" />
   <link rel="icon" href="/favicon.ico" />
-
   <style>
-    :root {
-      --bg:#0f172a;      /* тёмно-синий фон */
-      --card:#111827;    /* карточки */
-      --text:#e5e7eb;    /* текст */
-      --muted:#9ca3af;   /* подписи */
-      --acc:#f59e0b;     /* акцент (оранжевый) */
-      --ok:#22c55e;      /* зелёный */
+    /* ===== Design System (Apple-like) ===== */
+    :root{
+      --bg:#ffffff;
+      --text:#0a0a0a;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#111827;       /* почти чёрный для CTA */
+      --accent-weak:#1118270D;/* лёгкий фон */
+      --radius:20px;
+      --shadow:0 10px 30px rgba(0,0,0,.06);
+      --container:1200px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans","Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";line-height:1.45}
-    a{color:inherit}
-    .wrap{max-width:1100px;margin:0 auto;padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
-    .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#fde68a,#f59e0b);display:inline-block}
-    .brand h1{font-size:20px;margin:0}
-    nav a{opacity:.9;text-decoration:none;padding:8px 10px;border-radius:10px}
-    nav a:hover{background:#1f2937}
-    .hero{margin-top:24px;background:linear-gradient(180deg,rgba(245,158,11,.08),rgba(245,158,11,0));border:1px solid #1f2937;border-radius:16px;padding:28px}
-    .hero h2{font-size:28px;margin:0 0 8px}
-    .hero p{margin:0 0 16px;color:var(--muted)}
-    .btn{display:inline-block;background:var(--acc);color:#111827;text-decoration:none;padding:12px 18px;border-radius:12px;font-weight:600}
-    .btn:hover{filter:brightness(.95)}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
-    .card{background:var(--card);border:1px solid #1f2937;border-radius:14px;padding:16px}
-    .card h3{margin:0 0 6px;font-size:18px}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto}
+    .container{max-width:var(--container);margin:0 auto;padding:32px 20px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(140deg,#111827,#4b5563);box-shadow:inset 0 0 0 1px #00000022}
+    .brand h1{font-size:clamp(18px,2vw,20px);font-weight:600;margin:0}
+    nav{display:flex;gap:10px;flex-wrap:wrap}
+    nav a{padding:10px 14px;border-radius:12px}
+    nav a:hover{background:var(--accent-weak)}
+    .hero{padding:56px 0;border-bottom:1px solid var(--line)}
+    .hero h2{font-size:clamp(32px,5vw,56px);line-height:1.05;letter-spacing:-.02em;margin:0 0 12px}
+    .hero p{font-size:clamp(16px,2.2vw,20px);color:var(--muted);margin:0 0 24px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;border-radius:14px;font-weight:600;transition:.2s ease;will-change:transform,box-shadow}
+    .btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.15)}
+    .btn.primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+    .btn.ghost{background:#fff;border:1px solid var(--line)}
+    .stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px}
+    .chip{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:#111827}
+    .section{padding:48px 0}
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(3,1fr)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px;font-size:20px;letter-spacing:-.01em}
     .card p{margin:0;color:var(--muted)}
-    .card .btn{margin-top:12px}
-    .muted{color:var(--muted)}
-    .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-    .badge{border:1px dashed #334155;border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}
-    footer{margin-top:36px;padding:20px 0;border-top:1px solid #1f2937;color:var(--muted);font-size:14px}
-    .note{font-size:13px;color:var(--muted);margin-top:10px}
-    @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){
-      header{flex-direction:column;align-items:flex-start}
-      .grid{grid-template-columns:1fr}
-      .hero{padding:20px}
-    }
+    .card .btn{margin-top:14px}
+    .how{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .how .step{border:1px solid var(--line);border-radius:16px;padding:16px}
+    footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+    /* Responsive */
+    @media (max-width:980px){.grid{grid-template-columns:1fr 1fr}.how{grid-template-columns:1fr}}
+    @media (max-width:640px){header{flex-direction:column;align-items:flex-start}.grid{grid-template-columns:1fr}}
+    /* Focus styles for a11y */
+    :focus-visible{outline:2px solid #11182733;outline-offset:2px;border-radius:12px}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <a class="brand" href="/">
-        <span class="logo" aria-hidden="true"></span>
-        <h1>АзбуКид</h1>
-      </a>
-      <nav aria-label="Основная навигация">
-        <a href="/diagnostics.html">Диагностика</a>
-        <a href="#" aria-disabled="true" title="Скоро">Мини-курсы</a>
-        <a href="#" aria-disabled="true" title="Скоро">Печатные листы</a>
-        <a href="mailto:hello@azbukid.ru">Контакты</a>
-      </nav>
-    </header>
+  <header>
+    <div class="container" style="padding-bottom:0">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+        <a class="brand" href="/"><span class="logo" aria-hidden="true"></span><h1>АзбуКид</h1></a>
+        <nav aria-label="Навигация">
+          <a href="/diagnostics.html">Диагностика</a>
+          <a href="#" aria-disabled="true" title="Скоро">Мини-курсы</a>
+          <a href="#" aria-disabled="true" title="Скоро">Печатные листы</a>
+          <a href="mailto:hello@azbukid.ru">Контакты</a>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <h2 id="hero-title">Подготовка к школе — 10 минут в день</h2>
-        <p>Экспресс-диагностика за 5–7 минут → карта навыков и персональный план занятий на неделю. Для детей 3–7 лет.</p>
-        <a class="btn" href="/diagnostics.html">Начать диагностику</a>
-        <div class="badges">
-          <span class="badge">3 блока × 3 минуты</span>
-          <span class="badge">Речь · Счёт · Рутины</span>
-          <span class="badge">Печатные листы бесплатно</span>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Подготовка к школе — просто и красиво</h2>
+        <p>5 минут диагностики → карта навыков и персональный план на 7 дней. 10 минут в день: речь, счёт и логика. Печатные листы — бесплатно.</p>
+        <div class="actions">
+          <a class="btn primary" href="/diagnostics.html">Начать диагностику</a>
+          <a class="btn ghost" href="#" aria-disabled="true" title="Скоро">Посмотреть мини-курсы</a>
         </div>
-      </section>
+        <div class="stats">
+          <span class="chip">Для детей 3–7 лет</span>
+          <span class="chip">Без регистрации</span>
+          <span class="chip">Результаты сохраняются</span>
+        </div>
+      </div>
+    </section>
 
-      <section aria-labelledby="sec1" class="grid">
-        <article class="card">
-          <h3 id="sec1">Экспресс-диагностика</h3>
-          <p>20 коротких заданий: речь, внимание, логика, моторика. Результат — карта сильных сторон и зон роста.</p>
-          <a class="btn" href="/diagnostics.html">Пройти</a>
-        </article>
+    <section class="section">
+      <div class="container">
+        <div class="grid">
+          <article class="card">
+            <h3>Экспресс-диагностика</h3>
+            <p>15 коротких заданий: речь/язык, счёт/числа, логика/внимание, графомоторика.</p>
+            <a class="btn primary" href="/diagnostics.html">Пройти</a>
+          </article>
+          <article class="card">
+            <h3>Еженедельный план</h3>
+            <p>Автоматический план на неделю по двум слабейшим навыкам — «3×3 минуты» в день.</p>
+            <a class="btn ghost" href="#" aria-disabled="true" title="Скоро">Скоро</a>
+          </article>
+          <article class="card">
+            <h3>Печатные листы</h3>
+            <p>Прописи, лабиринты, «найди тень» и поощрительные наклейки. PDF для печати.</p>
+            <a class="btn ghost" href="#" aria-disabled="true" title="Скоро">Скоро</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <article class="card">
-          <h3>Еженедельный план</h3>
-          <p>Автогенерация плана на 7 дней: 3 мини-занятия по 3 минуты. Фокус на игровые упражнения и прогресс.</p>
-          <a class="btn" href="#" aria-disabled="true" title="Скоро">Скоро</a>
-        </article>
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="how">
+          <div class="step">
+            <strong>1. Пройдите диагностику</strong>
+            <p class="muted">5 минут — отвечаете по наблюдениям за ребёнком.</p>
+          </div>
+          <div class="step">
+            <strong>2. Получите карту навыков</strong>
+            <p class="muted">Сильные стороны и зоны для тренировки в понятном отчёте.</p>
+          </div>
+          <div class="step">
+            <strong>3. Следуйте плану 7 дней</strong>
+            <p class="muted">Ежедневно 10 минут: короткие игровые задания.</p>
+          </div>
+          <div class="step">
+            <strong>4. Печатайте листы</strong>
+            <p class="muted">Домашние мини-задания: прописи, логика, внимание.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        <article class="card">
-          <h3>Печатные листы</h3>
-          <p>Прописи имени, лабиринты, «найди тень», отличия и наклейки-поощрения. PDF для печати дома.</p>
-          <a class="btn" href="#" aria-disabled="true" title="Скоро">Скоро</a>
-        </article>
-      </section>
-
-      <!-- Рекламные слоты — скрыты до подключения реальных баннеров
-      <section class="grid" aria-label="Рекламные слоты">
-        <div class="card">Рекламный слот #1</div>
-        <div class="card">Рекламный слот #2</div>
-        <div class="card">Рекламный слот #3</div>
-      </section>
-      -->
-
-      <section class="card" style="margin-top:24px">
-        <h3>Как это работает</h3>
-        <ol>
-          <li>Проходите диагностику (5–7 минут).</li>
-          <li>Получаете карту навыков и персональный план на неделю.</li>
-          <li>Каждый день — 10 минут мини-занятий + печатные листы.</li>
-        </ol>
-        <p class="note">Пока работает «лёгкий» режим без регистрации — результаты сохраняются в вашем браузере.</p>
-      </section>
-    </main>
-
-    <footer>
-      <div>© АзбуКид, 2025</div>
-      <div>Контакты: <a href="mailto:hello@azbukid.ru">hello@azbukid.ru</a></div>
-      <div class="note">Если кнопка «Мини-курсы» или «Печатные листы» неактивна — раздел скоро откроется.</div>
-    </footer>
-  </div>
+  <footer>
+    <div class="container" style="padding-top:0">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>© АзбуКид, 2025</div>
+        <div><a href="mailto:hello@azbukid.ru">hello@azbukid.ru</a></div>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    // Простая защита от клика по неактивным ссылкам
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a[aria-disabled="true"]');
-      if (a){ e.preventDefault(); }
+    // Блокируем клики по неактивным пунктам меню
+    document.addEventListener('click',(e)=>{
+      const a=e.target.closest('a[aria-disabled="true"]'); if(a){e.preventDefault();}
     });
   </script>
 </body>
