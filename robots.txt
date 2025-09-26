@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://azbukid.ru/sitemap.xml
