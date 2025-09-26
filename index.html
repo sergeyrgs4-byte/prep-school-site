@@ -36,6 +36,7 @@
       var(--bg);
     font: 500 17px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
     letter-spacing:.1px;
+    position:relative; /* для фоновых псевдоэлементов */
   }
   a{color:inherit; text-decoration:none}
   .wrap{max-width:1100px; margin:0 auto; padding:24px}
@@ -62,7 +63,7 @@
 
   .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:36px 0 18px}
   .card{
-    background:linear-gradient(180deg,#FFFFFF, #FFFFFF);
+    background:#FFFFFF;
     border:1px solid rgba(6,48,52,.08);
     border-radius:var(--r2); padding:24px; box-shadow:var(--shadow)
   }
@@ -101,8 +102,51 @@
   .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(6,48,52,.12);padding:8px 12px;border-radius:999px;background:#FFFFFF}
   .kicker{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
   .list{margin:8px 0 0 18px}
-</style>
 
+  /* --- Фоновые картинки: непрозрачные PNG за контентом --- */
+  /* Контент поверх */
+  .wrap, header, section, footer { position:relative; z-index:1; }
+
+  body::before,
+  body::after{
+    content:"";
+    position:fixed;
+    z-index:0;             /* ниже контента, выше градиентов body */
+    pointer-events:none;
+    background-repeat:no-repeat;
+    background-size:contain;
+    image-rendering:auto;
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,.12)); /* мягкая тень для читаемости */
+  }
+
+  /* Слева-сверху: динозавр */
+  body::before{
+    top:20px;
+    left:20px;
+    width:320px;
+    height:320px;
+    background-image:url('images/dino.png'); /* непрозрачный PNG */
+  }
+
+  /* Справа-снизу: машинка */
+  body::after{
+    right:30px;
+    bottom:40px;
+    width:360px;
+    height:210px;
+    background-image:url('images/car.png');  /* непрозрачный PNG */
+  }
+
+  /* Адаптив: чтобы декор не мешал интерфейсу на узких экранах */
+  @media (max-width:900px){
+    body::before{ width:240px; height:240px; }
+    body::after { width:260px; height:160px; }
+  }
+  @media (max-width:640px){
+    body::before{ opacity:.9; }  /* лёгкое приглушение только на очень узких */
+    body::after { display:none; }/* машинку убираем */
+  }
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -120,25 +164,22 @@
 
     <!-- ГЕРОЙ -->
     <section class="hero">
-  <div class="card">
-    <span class="eyebrow">3–9 лет • 10 минут в день</span>
-    <h1>Тест: проверь готовность ребёнка к школе</h1>
-    <p class="lead">Экспресс-диагностика за 5–7 минут: формы, внимание, счёт, речь. Сразу выдаём карту навыков и план на неделю.</p>
-    <div class="kicker">
-      <span class="pill">Без регистрации</span>
-      <span class="pill">На телефоне</span>
-      <span class="pill">Отчёт для родителя</span>
-    </div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
-      <a class="btn" href="diagnostics.html">Начать тест</a>
-      <a class="btn btn-ghost" href="#plan">Что внутри плана ↓</a>
-    </div>
-  </div>
-  <div class="illus">
-    <div>Игры<br>Сказки<br>Листы</div>
-  </div>
-</section>
-
+      <div class="card">
+        <span class="eyebrow">3–9 лет • 10 минут в день</span>
+        <h1>Тест: проверь готовность ребёнка к школе</h1>
+        <p class="lead">Экспресс-диагностика за 5–7 минут: формы, внимание, счёт, речь. Сразу выдаём карту навыков и план на неделю.</p>
+        <div class="kicker">
+          <span class="pill">Без регистрации</span>
+          <span class="pill">На телефоне</span>
+          <span class="pill">Отчёт для родителя</span>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
+          <a class="btn" href="diagnostics.html">Начать тест</a>
+          <a class="btn btn-ghost" href="#plan">Что внутри плана ↓</a>
+        </div>
+      </div>
+      <div class="illus"><div>Игры<br>Сказки<br>Листы</div></div>
+    </section>
 
     <!-- ПЛАН НА СЕГОДНЯ -->
     <section id="plan" class="row fade">
@@ -270,4 +311,3 @@
 </script>
 </body>
 </html>
-
