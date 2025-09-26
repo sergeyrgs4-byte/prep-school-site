@@ -5,15 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>АзбуКид — Тест готовности к школе</title>
   <meta name="description" content="Короткий тест за 5 минут: проверьте готовность ребёнка к школе и получите план на неделю.">
+  <meta name="theme-color" content="#4c8eff">
+  <!-- можно позже заменить на свой /assets/favicon.svg -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ctext y='55' font-size='56'%3E🧩%3C/text%3E%3C/svg%3E">
   <style>
     :root{
       --bg:#ffffff; --ink:#0b1020; --muted:#5b6478;
       --brand:#4c8eff; --brand-ink:#0f3e9e;
       --card:#f7f9ff; --radius:18px; --shadow:0 12px 40px rgba(0,0,0,.08);
+      --border:#e3eaff;
     }
     html,body{height:100%; margin:0; background:var(--bg); color:var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;}
-    .wrap{min-height:100%; display:grid; place-items:center; padding:24px}
+    .container{max-width:1040px;margin:0 auto;padding:0 16px}
+
+    /* ===== Герой-блок по центру ===== */
+    .wrap{min-height:100%; display:grid; place-items:center; padding:24px 16px 8px}
     .hero{
       width:min(880px, 100%);
       background:var(--card);
@@ -22,13 +29,16 @@
       padding: clamp(22px, 5vw, 42px);
       text-align:center;
     }
+    .logo{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; color:#233}
+    .logo b{font-size:18px}
+    .icon{width:28px; height:28px}
     .eyebrow{font-size:14px; letter-spacing:.02em; color:var(--brand-ink); font-weight:700;
       text-transform:uppercase; margin-bottom:10px}
     h1{font-size: clamp(28px, 5vw, 46px); line-height:1.1; margin:0 0 10px}
     .sub{font-size: clamp(16px, 2.5vw, 18px); color:var(--muted); margin:0 auto 18px;
       max-width: 620px;}
     .badges{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:0 0 22px; padding:0; list-style:none}
-    .badge{border:1px solid #dfe7ff; background:#fff; border-radius:999px; padding:6px 10px; font-size:14px}
+    .badge{border:1px solid var(--border); background:#fff; border-radius:999px; padding:6px 10px; font-size:14px}
     .cta{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:8px}
     .btn{
       display:inline-block; font-weight:700; text-decoration:none; border-radius:14px;
@@ -37,17 +47,79 @@
     .btn--primary{background:var(--brand); color:#fff; box-shadow:0 8px 24px rgba(76,142,255,.35)}
     .btn--primary:hover{transform:translateY(-1px); background:var(--brand-ink)}
     .hint{margin-top:10px; font-size:14px; color:var(--muted)}
-    footer{margin-top:24px; text-align:center; font-size:13px; color:#7a8399}
-    .logo{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; color:#233}
-    .logo b{font-size:18px}
-    .icon{width:28px; height:28px}
+    footer{margin:32px 0 12px; text-align:center; font-size:13px; color:#7a8399}
+
+    /* ===== Блок «Обучение по возрасту» ===== */
+    section.ages{padding: clamp(18px,4vw,48px) 0}
+    .ages__title{
+      text-align:center;margin:0 0 18px;
+      font-size: clamp(22px,3.5vw,30px);
+    }
+    .ages__grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+    }
+    /* Плитка 9:16 */
+    .age-card{
+      position:relative;
+      display:block;
+      aspect-ratio: 9 / 16;
+      border-radius:16px;
+      background: linear-gradient(180deg,#eaf1ff,#ffffff);
+      border:1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(76,142,255,.10);
+      padding:14px;
+      text-decoration:none;
+      overflow:hidden;
+      transition: transform .12s ease, box-shadow .12s ease, opacity .4s ease;
+    }
+    .age-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(76,142,255,.18);
+    }
+    .age-card__label{
+      position:absolute; left:14px; top:12px;
+      font-weight:800; font-size: clamp(18px,3.2vw,24px);
+      color:#0f3e9e;
+    }
+    .age-card__tags{
+      position:absolute; left:14px; bottom:12px;
+      font-size: 14px; color:#5b6478;
+      background:#fff; border:1px solid #e7edff;
+      border-radius:999px; padding:6px 10px;
+    }
+
+    /* Плавное появление при скролле */
+    .reveal-on-scroll .age-card{opacity:0; transform: translateY(16px);}
+    .reveal-on-scroll.is-visible .age-card{opacity:1; transform:none;}
+    .reveal-on-scroll.is-visible .age-card:nth-child(1){ transition-delay: .02s}
+    .reveal-on-scroll.is-visible .age-card:nth-child(2){ transition-delay: .06s}
+    .reveal-on-scroll.is-visible .age-card:nth-child(3){ transition-delay: .10s}
+    .reveal-on-scroll.is-visible .age-card:nth-child(4){ transition-delay: .14s}
+    .reveal-on-scroll.is-visible .age-card:nth-child(5){ transition-delay: .18s}
+    .reveal-on-scroll.is-visible .age-card:nth-child(6){ transition-delay: .22s}
+
+    /* Горизонтальный скролл на совсем узких экранах */
+    @media (max-width:560px){
+      .ages__grid{
+        display:grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 70%;
+        overflow-x: auto;
+        padding-bottom:8px;
+        scroll-snap-type: x mandatory;
+      }
+      .age-card{ scroll-snap-align: start; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- ===== Герой-блок (первый экран) ===== -->
   <div class="wrap">
     <main class="hero" role="main">
       <div class="logo">
-        <!-- маленький эмодзи-логотип, можно заменить на svg позже -->
         <span class="icon" aria-hidden="true">🧩</span><b>АзбуКид</b>
       </div>
 
@@ -70,10 +142,63 @@
       </div>
       <div class="hint">Нужен только телефон. Можно пройти вместе с ребёнком.</div>
     </main>
-
-    <footer>
-      © АзбуКид · Подготовка к школе онлайн
-    </footer>
   </div>
+
+  <!-- ===== Блок: Обучение по возрасту (появляется при скролле) ===== -->
+  <section class="ages" id="ages">
+    <div class="container">
+      <h2 class="ages__title">Обучение по возрасту</h2>
+
+      <div class="ages__grid reveal-on-scroll">
+        <a class="age-card" href="/ages/2.html" aria-label="Программы для 2 лет">
+          <span class="age-card__label">2 года</span>
+          <span class="age-card__tags">речь · моторика</span>
+        </a>
+
+        <a class="age-card" href="/ages/3.html" aria-label="Программы для 3 лет">
+          <span class="age-card__label">3 года</span>
+          <span class="age-card__tags">звук-и-слог · игры</span>
+        </a>
+
+        <a class="age-card" href="/ages/4.html" aria-label="Программы для 4 лет">
+          <span class="age-card__label">4 года</span>
+          <span class="age-card__tags">логика · счёт</span>
+        </a>
+
+        <a class="age-card" href="/ages/5.html" aria-label="Программы для 5 лет">
+          <span class="age-card__label">5 лет</span>
+          <span class="age-card__tags">буквы · графо</span>
+        </a>
+
+        <a class="age-card" href="/ages/6.html" aria-label="Программы для 6 лет">
+          <span class="age-card__label">6 лет</span>
+          <span class="age-card__tags">чтение · счёт до 20</span>
+        </a>
+
+        <a class="age-card" href="/ages/7.html" aria-label="Программы для 7 лет">
+          <span class="age-card__label">7 лет</span>
+          <span class="age-card__tags">подготовка к 1 классу</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© АзбуКид · Подготовка к школе онлайн</footer>
+
+  <script>
+    // Плавное появление блока с плитками при скролле
+    (function(){
+      const blocks = document.querySelectorAll('.reveal-on-scroll');
+      const io = new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, {threshold: 0.15});
+      blocks.forEach(b=>io.observe(b));
+    })();
+  </script>
 </body>
 </html>
