@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>АзбуКид — подготовка к школе онлайн</title>
-  <meta name="description" content="Экспресс-диагностика за 5 минут, карта навыков и персональный план занятий на неделю. Мини-курсы и печатные листы для детей 3–7 лет." />
+  <meta name="description" content="Экспресс-диагностика за 5 минут, карта навыков и персональный план на неделю. Мини-курсы и печатные листы для детей 3–7 лет." />
   <link rel="canonical" href="https://azbukid.ru/" />
   <meta property="og:title" content="АзбуКид — подготовка к школе онлайн" />
   <meta property="og:description" content="Диагностика, сильные стороны и план на 7 дней. 10 минут в день." />
@@ -12,66 +12,122 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://azbukid.ru/og-cover.jpg" />
   <link rel="icon" href="/favicon.ico" />
+
+  <!-- Шрифт Inter Variable -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter@5.0.17/index.css" />
 
   <style>
-    /* ===== Design System (Apple-like) ===== */
+    /* ===== Дизайн-система: современно + детские акценты ===== */
     :root{
       --bg:#ffffff;
       --text:#0a0a0a;
       --muted:#6b7280;
       --line:#e5e7eb;
-      --accent:#111827;       /* почти чёрный для CTA */
-      --accent-weak:#1118270D;/* лёгкий фон */
-      --radius:20px;
+      --card:#ffffff;
       --shadow:0 10px 30px rgba(0,0,0,.06);
+      --radius:20px;
       --container:1200px;
+
+      /* Детские пастели — очень мягко */
+      --p-yellow:#FDE68A;
+      --p-blue:#BFDBFE;
+      --p-pink:#FBCFE8;
+      --p-mint:#BBF7D0;
+
+      /* Акцент для CTA и заголовков */
+      --accent:#111827;
     }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     body{font-family:"Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;line-height:1.5}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto}
     .container{max-width:var(--container);margin:0 auto;padding:32px 20px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(140deg,#111827,#4b5563);box-shadow:inset 0 0 0 1px #00000022}
+    .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+
+    /* ===== Шапка ===== */
+    header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(140deg,#111827,#4b5563)}
     .brand h1{font-size:clamp(18px,2vw,20px);font-weight:600;margin:0}
-    nav{display:flex;gap:10px;flex-wrap:wrap}
+    nav{display:flex;gap:8px;flex-wrap:wrap}
     nav a{padding:10px 14px;border-radius:12px}
-    nav a:hover{background:var(--accent-weak)}
+    nav a:hover{background:#f4f4f5}
+
+    /* ===== Hero ===== */
     .hero{padding:56px 0;border-bottom:1px solid var(--line)}
+    .hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:center}
     .hero h2{font-size:clamp(32px,5vw,56px);line-height:1.05;letter-spacing:-.02em;margin:0 0 12px}
     .hero p{font-size:clamp(16px,2.2vw,20px);color:var(--muted);margin:0 0 24px}
     .actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;border-radius:14px;font-weight:600;transition:.2s ease;will-change:transform,box-shadow}
-    .btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.15)}
-    .btn.primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
-    .btn.ghost{background:#fff;border:1px solid var(--line)}
-    .stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;border-radius:16px;font-weight:600;transition:.2s ease;will-change:transform,box-shadow;border:1px solid var(--line)}
+    .btn.primary{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+    .btn.primary:hover{transform:translateY(-1px)}
+    .btn.ghost{background:#fff}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
     .chip{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:#111827}
-    .section{padding:48px 0}
+
+    /* Мозаика иконок (вдохновение: сетки/иконки Apple, но детские цвета) */
+    .icon-wall{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .icon-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;min-height:84px;opacity:0;transform:translateY(8px);transition:transform .5s ease,opacity .5s ease}
+    .icon{flex:0 0 48px;height:48px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line)}
+    .icon.yellow{background:color-mix(in oklab, var(--p-yellow) 30%, white)}
+    .icon.blue{background:color-mix(in oklab, var(--p-blue) 30%, white)}
+    .icon.pink{background:color-mix(in oklab, var(--p-pink) 30%, white)}
+    .icon.mint{background:color-mix(in oklab, var(--p-mint) 30%, white)}
+    .icon svg{width:26px;height:26px}
+    .icon-card h3{margin:0 0 4px;font-size:17px;letter-spacing:-.01em}
+    .icon-card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Микроанимация «покачивание» у иконок */
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+    .icon.float{animation:floaty 5s ease-in-out infinite}
+
+    /* ===== Блок «что внутри» ===== */
+    .section{padding:52px 0}
     .grid{display:grid;gap:18px;grid-template-columns:repeat(3,1fr)}
-    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-    .card h3{margin:0 0 8px;font-size:20px;letter-spacing:-.01em}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:transform .5s ease,opacity .5s ease}
+    .card h4{margin:0 0 8px;font-size:20px;letter-spacing:-.01em}
     .card p{margin:0;color:var(--muted)}
     .card .btn{margin-top:14px}
-    .how{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .how .step{border:1px solid var(--line);border-radius:16px;padding:16px}
+
+    /* ===== Футер ===== */
     footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
-    /* Responsive */
-    @media (max-width:980px){.grid{grid-template-columns:1fr 1fr}.how{grid-template-columns:1fr}}
-    @media (max-width:640px){header{flex-direction:column;align-items:flex-start}.grid{grid-template-columns:1fr}}
-    /* Focus styles for a11y */
-    :focus-visible{outline:2px solid #11182733;outline-offset:2px;border-radius:12px}
+
+    /* Появление при прокрутке (как у промо-страниц) */
+    .reveal.is-visible{opacity:1;transform:none}
+
+    /* Доступность: отключаем анимации, если пользователь просит */
+    @media (prefers-reduced-motion: reduce){
+      .icon.float{animation:none}
+      .icon-card,.card{transition:none}
+    }
+
+    /* Адаптив */
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      .icon-wall{grid-template-columns:repeat(4,1fr)}
+      .grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:640px){
+      .icon-wall{grid-template-columns:1fr 1fr}
+      .grid{grid-template-columns:1fr}
+      nav{justify-content:flex-start}
+    }
   </style>
 </head>
 <body>
+  <!-- ===== Шапка ===== -->
   <header>
-    <div class="container" style="padding-bottom:0">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
-        <a class="brand" href="/"><span class="logo" aria-hidden="true"></span><h1>АзбуКид</h1></a>
+    <div class="container" style="padding-top:14px;padding-bottom:14px">
+      <div class="nav">
+        <a class="brand" href="/">
+          <span class="logo" aria-hidden="true"></span>
+          <h1>АзбуКид</h1>
+        </a>
         <nav aria-label="Навигация">
           <a href="/diagnostics.html">Диагностика</a>
           <a href="#" aria-disabled="true" title="Скоро">Мини-курсы</a>
@@ -83,68 +139,140 @@
   </header>
 
   <main>
+    <!-- ===== Hero ===== -->
     <section class="hero">
       <div class="container">
-        <h2>Подготовка к школе — просто и красиво</h2>
-        <p>5 минут диагностики → карта навыков и персональный план на 7 дней. 10 минут в день: речь, счёт и логика. Печатные листы — бесплатно.</p>
-        <div class="actions">
-          <a class="btn primary" href="/diagnostics.html">Начать диагностику</a>
-          <a class="btn ghost" href="#" aria-disabled="true" title="Скоро">Посмотреть мини-курсы</a>
-        </div>
-        <div class="stats">
-          <span class="chip">Для детей 3–7 лет</span>
-          <span class="chip">Без регистрации</span>
-          <span class="chip">Результаты сохраняются</span>
+        <div class="hero-grid">
+          <div>
+            <h2>Подготовка к школе — понятно и доброжелательно</h2>
+            <p>5 минут диагностики → карта навыков и персональный план на 7 дней. Каждый день — 10 минут игровых мини-занятий: речь, счёт, логика и графомоторика.</p>
+            <div class="actions">
+              <a class="btn primary" href="/diagnostics.html">Начать диагностику</a>
+              <a class="btn ghost" href="#" aria-disabled="true" title="Скоро">Посмотреть мини-курсы</a>
+            </div>
+            <div class="chips">
+              <span class="chip">Для детей 3–7 лет</span>
+              <span class="chip">Без регистрации</span>
+              <span class="chip">Результаты сохраняются</span>
+            </div>
+          </div>
+
+          <!-- Мозаика иконок (детские темы) -->
+          <div class="icon-wall" aria-hidden="true">
+            <!-- Речь -->
+            <div class="icon-card reveal">
+              <div class="icon yellow float">
+                <!-- Книга -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 5h9a3 3 0 0 1 3 3v11H8a3 3 0 0 0-3 3V5z" stroke="#7c5c00" stroke-width="1.5"/>
+                  <path d="M17 19h-7a3 3 0 0 0-3 3" stroke="#7c5c00" stroke-width="1.5" opacity=".6"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Речь и язык</h3>
+                <p>Звуки, слоги, понимание инструкций.</p>
+              </div>
+            </div>
+            <!-- Счёт -->
+            <div class="icon-card reveal">
+              <div class="icon blue float">
+                <!-- Кубики -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="3" width="8" height="8" rx="2" stroke="#0b3a70" stroke-width="1.5"/>
+                  <rect x="13" y="7" width="8" height="8" rx="2" stroke="#0b3a70" stroke-width="1.5" opacity=".7"/>
+                  <rect x="7" y="13" width="8" height="8" rx="2" stroke="#0b3a70" stroke-width="1.5" opacity=".4"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Счёт и числа</h3>
+                <p>До 10, больше/меньше, +1/–1.</p>
+              </div>
+            </div>
+            <!-- Логика -->
+            <div class="icon-card reveal">
+              <div class="icon mint float">
+                <!-- Пазл -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M8 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 0 0 4v4h-4a2 2 0 1 1-4 0H8v-4a2 2 0 1 0 0-4V8z" stroke="#0c6a3a" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Логика и внимание</h3>
+                <p>Последовательности, «лишнее», слуховое внимание.</p>
+              </div>
+            </div>
+            <!-- Письмо -->
+            <div class="icon-card reveal">
+              <div class="icon pink float">
+                <!-- Карандаш -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M3 17l2.5 4.5L10 19l9-9-4-4-9 9-3 2z" stroke="#7a184e" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Графомоторика</h3>
+                <p>Обводка, захват карандаша, линии.</p>
+              </div>
+            </div>
+            <!-- Рутины -->
+            <div class="icon-card reveal">
+              <div class="icon yellow float">
+                <!-- Часы -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="8" stroke="#7c5c00" stroke-width="1.5"/>
+                  <path d="M12 7v5l3 2" stroke="#7c5c00" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Рутины</h3>
+                <p>Короткие ежедневные шаги по плану.</p>
+              </div>
+            </div>
+            <!-- Прогресс -->
+            <div class="icon-card reveal">
+              <div class="icon blue float">
+                <!-- Прогресс-бар -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="10" width="18" height="4" rx="2" stroke="#0b3a70" stroke-width="1.5"/>
+                  <rect x="3" y="10" width="10" height="4" rx="2" fill="#0b3a70" opacity=".7"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Прозрачный прогресс</h3>
+                <p>Сохраняем результаты в вашем браузере.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- ===== Что внутри ===== -->
     <section class="section">
       <div class="container">
+        <h2 class="sr-only">Что внутри АзбуКид</h2>
         <div class="grid">
-          <article class="card">
-            <h3>Экспресс-диагностика</h3>
-            <p>15 коротких заданий: речь/язык, счёт/числа, логика/внимание, графомоторика.</p>
-            <a class="btn primary" href="/diagnostics.html">Пройти</a>
+          <article class="card reveal">
+            <h4>Экспресс-диагностика</h4>
+            <p>15 коротких вопросов — получаете карту навыков по 4 доменам.</p>
+            <a class="btn primary" href="/diagnostics.html" style="margin-top:14px">Пройти</a>
           </article>
-          <article class="card">
-            <h3>Еженедельный план</h3>
-            <p>Автоматический план на неделю по двум слабейшим навыкам — «3×3 минуты» в день.</p>
-            <a class="btn ghost" href="#" aria-disabled="true" title="Скоро">Скоро</a>
+          <article class="card reveal">
+            <h4>План на 7 дней</h4>
+            <p>Две слабейшие области → «3×3 минуты» ежедневно. Игровые задания.</p>
+            <a class="btn ghost" href="#" aria-disabled="true" title="Скоро" style="margin-top:14px">Скоро</a>
           </article>
-          <article class="card">
-            <h3>Печатные листы</h3>
-            <p>Прописи, лабиринты, «найди тень» и поощрительные наклейки. PDF для печати.</p>
-            <a class="btn ghost" href="#" aria-disabled="true" title="Скоро">Скоро</a>
+          <article class="card reveal">
+            <h4>Печатные листы</h4>
+            <p>Прописи, лабиринты, «найди тень», наклейки-поощрения (PDF).</p>
+            <a class="btn ghost" href="#" aria-disabled="true" title="Скоро" style="margin-top:14px">Скоро</a>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top:0">
-      <div class="container">
-        <div class="how">
-          <div class="step">
-            <strong>1. Пройдите диагностику</strong>
-            <p class="muted">5 минут — отвечаете по наблюдениям за ребёнком.</p>
-          </div>
-          <div class="step">
-            <strong>2. Получите карту навыков</strong>
-            <p class="muted">Сильные стороны и зоны для тренировки в понятном отчёте.</p>
-          </div>
-          <div class="step">
-            <strong>3. Следуйте плану 7 дней</strong>
-            <p class="muted">Ежедневно 10 минут: короткие игровые задания.</p>
-          </div>
-          <div class="step">
-            <strong>4. Печатайте листы</strong>
-            <p class="muted">Домашние мини-задания: прописи, логика, внимание.</p>
-          </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- ===== Футер ===== -->
   <footer>
     <div class="container" style="padding-top:0">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
@@ -155,12 +283,24 @@
   </footer>
 
   <script>
-    // Блокируем клики по неактивным пунктам меню
+    // Блокируем клики по неактивным ссылкам
     document.addEventListener('click',(e)=>{
       const a=e.target.closest('a[aria-disabled="true"]'); if(a){e.preventDefault();}
+    });
+
+    // Плавное появление карточек при прокрутке (IntersectionObserver)
+    const obs = 'IntersectionObserver' in window ? new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          en.target.classList.add('is-visible');
+          obs.unobserve(en.target);
+        }
+      });
+    },{root:null,rootMargin:'0px 0px -10% 0px',threshold:0.1}) : null;
+
+    document.querySelectorAll('.reveal').forEach(el=>{
+      if(obs) obs.observe(el); else el.classList.add('is-visible');
     });
   </script>
 </body>
 </html>
-
-
