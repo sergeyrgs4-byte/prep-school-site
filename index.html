@@ -7,77 +7,133 @@
   <meta name="description" content="Экспресс-диагностика 5–7 минут → карта навыков и персональный план на неделю. Ежедневные мини-курсы по 10 минут и бесплатные печатные листы для детей 3–7 лет." />
   <link rel="canonical" href="https://azbukid.ru/" />
   <meta property="og:title" content="АзбуКид — подготовка к школе онлайн" />
-  <meta property="og:description" content="Быстрая диагностика, персональный план и печатные листы бесплатно." />
+  <meta property="og:description" content="Диагностика + мини-план на 7 дней. Печатные листы бесплатно." />
   <meta property="og:url" content="https://azbukid.ru/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://azbukid.ru/og-cover.jpg" />
   <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    :root {
+      --bg:#0f172a;      /* тёмно-синий фон */
+      --card:#111827;    /* карточки */
+      --text:#e5e7eb;    /* текст */
+      --muted:#9ca3af;   /* подписи */
+      --acc:#f59e0b;     /* акцент (оранжевый) */
+      --ok:#22c55e;      /* зелёный */
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans","Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";line-height:1.45}
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#fde68a,#f59e0b);display:inline-block}
+    .brand h1{font-size:20px;margin:0}
+    nav a{opacity:.9;text-decoration:none;padding:8px 10px;border-radius:10px}
+    nav a:hover{background:#1f2937}
+    .hero{margin-top:24px;background:linear-gradient(180deg,rgba(245,158,11,.08),rgba(245,158,11,0));border:1px solid #1f2937;border-radius:16px;padding:28px}
+    .hero h2{font-size:28px;margin:0 0 8px}
+    .hero p{margin:0 0 16px;color:var(--muted)}
+    .btn{display:inline-block;background:var(--acc);color:#111827;text-decoration:none;padding:12px 18px;border-radius:12px;font-weight:600}
+    .btn:hover{filter:brightness(.95)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:14px;padding:16px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .card p{margin:0;color:var(--muted)}
+    .card .btn{margin-top:12px}
+    .muted{color:var(--muted)}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .badge{border:1px dashed #334155;border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}
+    footer{margin-top:36px;padding:20px 0;border-top:1px solid #1f2937;color:var(--muted);font-size:14px}
+    .note{font-size:13px;color:var(--muted);margin-top:10px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){
+      header{flex-direction:column;align-items:flex-start}
+      .grid{grid-template-columns:1fr}
+      .hero{padding:20px}
+    }
+  </style>
 </head>
-
 <body>
-  <header>
-    <div class="wrap">
-      <strong>Подготовка к школе онлайн</strong>
-    </div>
-  </header>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/">
+        <span class="logo" aria-hidden="true"></span>
+        <h1>АзбуКид</h1>
+      </a>
+      <nav aria-label="Основная навигация">
+        <a href="/diagnostics.html">Диагностика</a>
+        <a href="#" aria-disabled="true" title="Скоро">Мини-курсы</a>
+        <a href="#" aria-disabled="true" title="Скоро">Печатные листы</a>
+        <a href="mailto:hello@azbukid.ru">Контакты</a>
+      </nav>
+    </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <h1>Экспресс-диагностика за 5–7 минут</h1>
-      <p>Ответьте на простые задания — получите карту навыков и план занятий на неделю (10 минут в день).</p>
-      <a class="btn" href="diagnostics.html">Начать диагностику</a>
-
-    </section>
-
-    <div style="height:12px"></div>
-    <div class="ad">Рекламный слот #1 (фикс-блок)</div>
-
-    <section id="courses">
-      <h2>Ежедневные мини-курсы</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Фонетика и речь</h3>
-          <p>3 мини-игры × 3 минуты: звуки, рифмы, первые слова.</p>
-          <a class="btn" href="#mini-courses">Открыть</a>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <h2 id="hero-title">Подготовка к школе — 10 минут в день</h2>
+        <p>Экспресс-диагностика за 5–7 минут → карта навыков и персональный план занятий на неделю. Для детей 3–7 лет.</p>
+        <a class="btn" href="/diagnostics.html">Начать диагностику</a>
+        <div class="badges">
+          <span class="badge">3 блока × 3 минуты</span>
+          <span class="badge">Речь · Счёт · Рутины</span>
+          <span class="badge">Печатные листы бесплатно</span>
         </div>
-        <div class="card">
-          <h3>Счёт и логика</h3>
-          <p>Счёт до 10, сравнение, закономерности.</p>
-          <a class="btn" href="#mini-courses">Открыть</a>
-        </div>
-        <div class="card">
-          <h3>Самообслуживание</h3>
-          <p>Рутины: умыться, собрать портфель, порядок действий.</p>
-          <a class="btn" href="#mini-courses">Открыть</a>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <div style="height:12px"></div>
-    <div class="ad">Рекламный слот #2 (после первого блока)</div>
+      <section aria-labelledby="sec1" class="grid">
+        <article class="card">
+          <h3 id="sec1">Экспресс-диагностика</h3>
+          <p>20 коротких заданий: речь, внимание, логика, моторика. Результат — карта сильных сторон и зон роста.</p>
+          <a class="btn" href="/diagnostics.html">Пройти</a>
+        </article>
 
-    <section id="print">
-      <h2>Печатные листы бесплатно</h2>
-      <p>Прописи имени, лабиринты, тени/различия, наклейки-звёзды.</p>
-      <a class="btn" href="#printables">Скачать</a>
-    </section>
+        <article class="card">
+          <h3>Еженедельный план</h3>
+          <p>Автогенерация плана на 7 дней: 3 мини-занятия по 3 минуты. Фокус на игровые упражнения и прогресс.</p>
+          <a class="btn" href="#" aria-disabled="true" title="Скоро">Скоро</a>
+        </article>
 
-    <div style="height:12px"></div>
-    <div class="ad">Рекламный слот #3 (внизу)</div>
-  </main>
+        <article class="card">
+          <h3>Печатные листы</h3>
+          <p>Прописи имени, лабиринты, «найди тень», отличия и наклейки-поощрения. PDF для печати дома.</p>
+          <a class="btn" href="#" aria-disabled="true" title="Скоро">Скоро</a>
+        </article>
+      </section>
 
-  <footer>
-    © 2025 Подготовка к школе онлайн · Контакты: LIZO4KA <3  </footer>
+      <!-- Рекламные слоты — скрыты до подключения реальных баннеров
+      <section class="grid" aria-label="Рекламные слоты">
+        <div class="card">Рекламный слот #1</div>
+        <div class="card">Рекламный слот #2</div>
+        <div class="card">Рекламный слот #3</div>
+      </section>
+      -->
+
+      <section class="card" style="margin-top:24px">
+        <h3>Как это работает</h3>
+        <ol>
+          <li>Проходите диагностику (5–7 минут).</li>
+          <li>Получаете карту навыков и персональный план на неделю.</li>
+          <li>Каждый день — 10 минут мини-занятий + печатные листы.</li>
+        </ol>
+        <p class="note">Пока работает «лёгкий» режим без регистрации — результаты сохраняются в вашем браузере.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div>© АзбуКид, 2025</div>
+      <div>Контакты: <a href="mailto:hello@azbukid.ru">hello@azbukid.ru</a></div>
+      <div class="note">Если кнопка «Мини-курсы» или «Печатные листы» неактивна — раздел скоро откроется.</div>
+    </footer>
+  </div>
 
   <script>
-    // Заглушка озвучки (Web Speech API) — проверим позже:
-    function speak(text){
-      if (!('speechSynthesis' in window)) return;
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'ru-RU';
-      speechSynthesis.speak(u);
-    }
+    // Простая защита от клика по неактивным ссылкам
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[aria-disabled="true"]');
+      if (a){ e.preventDefault(); }
+    });
   </script>
 </body>
 </html>
-
