@@ -8,24 +8,30 @@
 
 <style>
   :root{
-    /* Пастельная палитра — ярче */
+    /* Пастель ярче */
     --bg:#FAFAFA;
-    --panel:#FFFFFF;
-    --panel2:#FFFFFF;
-
     --text:#2E2E2E;
     --muted:#5F6775;
 
-    --brand:#2AB3B0;   /* бирюза поярче */
-    --brand2:#9FE2D6;  /* мята поярче */
-    --accent1:#FF9AA2; /* розово-коралловый ярче */
-    --accent2:#FAD2C9; /* бежево-персиковый ярче */
+    --brand:#23B3AF;    /* бирюза поярче */
+    --brand2:#9FE2D6;   /* мята */
+    --accent1:#FF9AA2;  /* розово-коралловый */
+    --accent2:#FAD2C9;  /* бежево-персиковый */
 
-    --ring:rgba(42,179,176,.38);
     --shadow:0 10px 30px rgba(0,0,0,.06);
-    --r:18px; --r2:22px;
+    --ring:rgba(35,179,175,.35);
 
-    --tileOpacity:.92; /* прозрачность плиток */
+    /* Стекло */
+    --glass: rgba(255,255,255,.58);
+    --glassBorder: rgba(6,48,52,.14);
+    --glassTint1: rgba(35,179,175,.12);
+    --glassTint2: rgba(255,154,162,.12);
+
+    /* Прозрачность плиток и карточек */
+    --tileOpacity:.92;
+    --cardOpacity:.90;
+
+    --r:18px; --r2:22px;
   }
 
   *{box-sizing:border-box}
@@ -38,18 +44,44 @@
       var(--bg);
     font: 500 17px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
     letter-spacing:.1px;
-    position:relative;
   }
   a{color:inherit; text-decoration:none}
+
+  /* ====== ФИКСИРОВАННЫЙ ДЕКОР (НЕ СКРОЛЛИТСЯ) ====== */
+  .decor{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+  }
+  .decor .dino,
+  .decor .car{
+    position:absolute; background-repeat:no-repeat; background-size:contain;
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,.12));
+  }
+  .decor .dino{
+    top:20px; left:20px; width:340px; height:340px;
+    background-image:url('images/dino.png'); /* непрозрачный PNG */
+  }
+  .decor .car{
+    right:30px; bottom:40px; width:380px; height:220px;
+    background-image:url('images/car.png');  /* непрозрачный PNG */
+  }
+  @media (max-width:900px){
+    .decor .dino{ width:260px; height:260px; }
+    .decor .car { width:280px; height:170px; }
+  }
+  @media (max-width:640px){
+    .decor .dino{ width:210px; height:210px; }
+    .decor .car { display:none; }
+  }
+
+  /* ====== КОНТЕНТ ====== */
   .wrap{max-width:1100px; margin:0 auto; padding:24px; position:relative; z-index:1;}
 
   header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:6px 0}
   .logo{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.3px}
   .badge{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
     background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#053B3A; box-shadow:var(--shadow)}
-
   nav a{padding:10px 12px; border-radius:10px; color:#3E4B57}
-  nav a:hover{background:rgba(42,179,176,.12)}
+  nav a:hover{background:rgba(35,179,175,.12)}
 
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
     padding:16px 22px; border-radius:14px; font-weight:800; letter-spacing:.2px; border:none; cursor:pointer;
@@ -64,19 +96,29 @@
   .lead{font-size:clamp(16px,2.2vw,18px); color:#464F5A}
 
   .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:36px 0 18px}
+
+  /* ==== СТЕКЛЯННЫЕ КАРТОЧКИ ==== */
   .card{
-    background:#FFFFFF;
-    border:1px solid rgba(6,48,52,.08);
-    border-radius:var(--r2); padding:24px; box-shadow:var(--shadow)
+    border-radius:var(--r2); padding:24px; box-shadow:var(--shadow);
+    border:1px solid var(--glassBorder);
+    background:
+      linear-gradient(135deg, var(--glassTint1), var(--glassTint2)),
+      rgba(255,255,255,var(--cardOpacity));
+    backdrop-filter: blur(10px) saturate(1.05);
+    -webkit-backdrop-filter: blur(10px) saturate(1.05);
   }
 
-  /* Иллюстрация — светлые пастельные заливки */
+  /* Иллюстрация в герое */
   .illus{aspect-ratio:4/5;border-radius:var(--r2);
+    border:1px solid var(--glassBorder); box-shadow:var(--shadow);
     background:
-      radial-gradient(520px 260px at 20% 0%, rgba(255,154,162,.28), transparent 60%),
-      radial-gradient(520px 280px at 90% 100%, rgba(159,226,214,.34), transparent 60%),
-      var(--panel2);
-    border:1px solid rgba(6,48,52,.08); display:grid;place-items:center; box-shadow:var(--shadow)}
+      radial-gradient(520px 260px at 20% 0%, rgba(255,154,162,.30), transparent 60%),
+      radial-gradient(520px 280px at 90% 100%, rgba(159,226,214,.36), transparent 60%),
+      rgba(255,255,255,.75);
+    backdrop-filter: blur(6px) saturate(1.02);
+    -webkit-backdrop-filter: blur(6px) saturate(1.02);
+    display:grid;place-items:center;
+  }
   .illus > div{font-weight:900;font-size:40px;line-height:1.1;text-align:center;color:#0F172A}
 
   .row{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
@@ -85,7 +127,7 @@
   .fade{opacity:0;transform:translateY(10px);transition:all .45s ease}
   .fade.appear{opacity:1;transform:none}
 
-  /* Плитки-игры 9:16 */
+  /* ==== ПЛИТКИ 9:16 — стекло с единым градиентом ==== */
   .grid{display:grid;gap:14px;grid-template-columns:repeat(6,1fr)}
   @media (max-width:1100px){.grid{grid-template-columns:repeat(4,1fr)}}
   @media (max-width:720px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3,1fr)}}
@@ -93,12 +135,15 @@
 
   .tile{
     position:relative;border-radius:18px;overflow:hidden;cursor:pointer;
-    /* ярче и ЕДИНЫЙ фон для всех плиток */
     background:
-      linear-gradient(135deg, rgba(255,154,162,var(--tileOpacity)), rgba(159,226,214,var(--tileOpacity)));
-    border:1px solid rgba(6,48,52,.10); box-shadow:var(--shadow);
+      linear-gradient(135deg,
+        rgba(255,154,162,var(--tileOpacity)),
+        rgba(159,226,214,var(--tileOpacity)));
+    border:1px solid rgba(6,48,52,.10);
+    box-shadow:var(--shadow);
     transition:transform .06s ease, filter .18s ease, box-shadow .18s ease;
-    backdrop-filter:saturate(1.08);
+    backdrop-filter: blur(6px) saturate(1.06);
+    -webkit-backdrop-filter: blur(6px) saturate(1.06);
   }
   .tile:hover{transform:translateY(-2px);filter:saturate(1.06);box-shadow:0 14px 34px rgba(0,0,0,.08)}
   .tile::before{content:"";display:block;padding-top:177.78%}
@@ -112,48 +157,16 @@
   .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(6,48,52,.12);padding:8px 12px;border-radius:999px;background:#FFFFFF}
   .kicker{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
   .list{margin:8px 0 0 18px}
-
-  /* --- Фиксированные фоновые картинки: за контентом, НЕ скроллятся --- */
-  body::before,
-  body::after{
-    content:"";
-    position:fixed;    /* фиксируем к окну — «не двигаются за скроллом» */
-    z-index:0;         /* ниже контента, выше фоновых градиентов body */
-    pointer-events:none;
-    background-repeat:no-repeat;
-    background-size:contain;
-    image-rendering:auto;
-    filter: drop-shadow(0 6px 18px rgba(0,0,0,.12)); /* мягкая тень */
-  }
-  /* слева-сверху динозавр */
-  body::before{
-    top:20px;
-    left:20px;
-    width:340px;
-    height:340px;
-    background-image:url('images/dino.png'); /* непрозрачный PNG */
-  }
-  /* справа-снизу машинка */
-  body::after{
-    right:30px;
-    bottom:40px;
-    width:380px;
-    height:220px;
-    background-image:url('images/car.png');  /* непрозрачный PNG */
-  }
-
-  /* Адаптив, чтобы декор не мешал */
-  @media (max-width:900px){
-    body::before{ width:260px; height:260px; }
-    body::after { width:280px; height:170px; }
-  }
-  @media (max-width:640px){
-    body::before{ width:210px; height:210px; opacity:.95; }
-    body::after { display:none; }
-  }
 </style>
 </head>
 <body>
+
+  <!-- ФИКСИРОВАННЫЙ ДЕКОР -->
+  <div class="decor">
+    <span class="dino" aria-hidden="true"></span>
+    <span class="car" aria-hidden="true"></span>
+  </div>
+
   <div class="wrap">
     <header>
       <a class="logo" href="/">
